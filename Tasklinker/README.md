@@ -63,3 +63,9 @@ execution de la migration
 ```bash
 php bin/console doctrine:migrations:migrate
 ```
+
+### Creation d'un formulaire:
+
+```bash
+php bin/console make:form
+```

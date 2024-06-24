@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\PersonType;
 use App\Repository\TeamRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,13 +23,20 @@ class TeamController extends AbstractController
         ]);
     }
 
-    #[Route('/team/{slug}-{id}-{firstName}', name: 'team.show')]
-    public function show(Request $request, string $slug, int $id, string $firstName): Response
+    #[Route('/team/{id}/edit', name: 'team.show')]
+    public function edit(Request $request, int $id, TeamRepository $repository, EntityManagerInterface $em): Response
     {
+        $person = $repository->find($id);
+        $form = $this->createForm(PersonType::class, $person);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $em->flush();
+            $this->addFlash('success', 'données modifier');
+            return $this->redirectToRoute('team.index');
+        }
         return $this->render('team/show.html.twig', [
-            'slug' => $slug,
-            'id' => $id,
-            'firstName' => $firstName
+            'person' => $person,
+            'form' => $form
         ]);
     }
 }
