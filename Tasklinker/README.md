@@ -31,3 +31,35 @@ Cela creer deux fichiers:
 -.twig
 
 ## communication avec base de donnée:
+
+### Creation des entité:
+
+```bash
+php bin/console make:entity
+```
+
+demande de plusieurs option un fois la commande rantré !
+name
+type
+lenght
+null?
+
+### Lancement de php myadmin
+
+```bash
+http://localhost/phpmyadmin/
+```
+
+### Creation des tables dans la db:
+
+creation de la migration
+
+```bash
+php bin/console make:migration
+```
+
+execution de la migration
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
