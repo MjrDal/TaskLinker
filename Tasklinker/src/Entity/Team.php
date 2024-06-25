@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\TeamRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
@@ -28,6 +30,11 @@ class Team
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="user")
+     */
+    private $projects;
 
     public function getId(): ?int
     {
@@ -99,5 +106,10 @@ class Team
         $this->date = $date;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
     }
 }

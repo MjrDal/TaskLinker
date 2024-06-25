@@ -58,6 +58,13 @@ creation de la migration
 php bin/console make:migration
 ```
 
+si proble lors de la creation de la migration
+
+```bash
+php bin/console doctrine:schema:update --force
+
+```
+
 execution de la migration
 
 ```bash
