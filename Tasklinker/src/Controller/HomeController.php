@@ -22,7 +22,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route("/projet-add", name: "project.create")]
+    #[Route("/project/projet-add", name: "project.create")]
     function projectCreate (Request $request, EntityManagerInterface $em): Response {
         $project = new Projects();
         $form = $this->createForm(ProjectType::class, $project);
